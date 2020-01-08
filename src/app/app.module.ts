@@ -1,3 +1,4 @@
+import { AuthInterceptorProvider } from './../interceptors/auth-interceptor';
 import { ClienteService } from './../services/domain/cliente.service';
 import { AuthService } from './../services/auth.service';
 
@@ -16,6 +17,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ErrorInterceptorProvider } from '../interceptors/error-interceptor';
 import { StorageService } from '../services/storage.service';
 
+
 @NgModule({
   declarations: [
     MyApp
@@ -33,6 +35,7 @@ import { StorageService } from '../services/storage.service';
     StatusBar,
     SplashScreen,
     CategoriaService,
+    AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
