@@ -1,3 +1,4 @@
+import { ClienteService } from './../services/domain/cliente.service';
 import { AuthService } from './../services/auth.service';
 
 import { CategoriaService } from './../services/domain/categoria.service';
@@ -35,6 +36,7 @@ import { StorageService } from '../services/storage.service';
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
+    ClienteService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
