@@ -51,5 +51,8 @@ creds: CredenciaisDTO ={
    
   }
 
+  signup(){
+    this.navCtrl.push("SignupPage");
+  }
  
 }
