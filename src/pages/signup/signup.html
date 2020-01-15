@@ -8,9 +8,9 @@
   <form [formGroup]="formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
     <ion-item>
       <ion-label stacked>Nome*</ion-label>
-      <ion-input formControlName="nome" type="text"></ion-input>
+      <ion-input formControlName="name" type="text"></ion-input>
     </ion-item>
-    <p class ="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Valor Inválido</p>
+    <p class ="danger" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors" margin-left>Valor Inválido</p>
     <ion-item>
       <ion-label stacked>Email*</ion-label>
       <ion-input formControlName="email" type="text"></ion-input>
@@ -42,9 +42,9 @@
     <p class ="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>Valor Inválido</p>
     <ion-item>
       <ion-label stacked> Logradouro*</ion-label>
-      <ion-input formControlName="logradouro" type="text"></ion-input>
+      <ion-input formControlName="logadouro" type="text"></ion-input>
     </ion-item>
-    <p class ="danger" *ngIf="formGroup.controls.logradouro.dirty && formGroup.controls.logradouro.errors" margin-left>Valor Inválido</p>
+    <p class ="danger" *ngIf="formGroup.controls.logadouro.dirty && formGroup.controls.logadouro.errors" margin-left>Valor Inválido</p>
     <ion-item>
       <ion-label stacked> Número*</ion-label>
       <ion-input formControlName="numero" type="text"></ion-input>

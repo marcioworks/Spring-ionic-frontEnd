@@ -1,3 +1,4 @@
+import { FieldMessage } from './../models/fieldmessage';
 import { StorageService } from './../services/storage.service';
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -8,7 +9,7 @@ import { AlertController } from 'ionic-angular';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(public storage: StorageService,public alertCtrl: AlertController) {
+    constructor(public storage: StorageService, public alertCtrl: AlertController) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -36,9 +37,13 @@ export class ErrorInterceptor implements HttpInterceptor {
                     case 403:
                         this.handle403();
                         break;
+
+                    case 422:
+                        this.handle422(errorObj);
+                        break;
                     default:
                         this.handleDefautError(errorObj);
-                        
+
 
                 }
                 return Observable.throw(errorObj);
@@ -50,33 +55,56 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.storage.setLocalUser(null);
     }
 
-    handle401(){
+    handle401() {
         let alert = this.alertCtrl.create({
-            title:'erro 401: Falha na autenticação',
-            message:'Email ou senha invalido',
+            title: 'erro 401: Falha na autenticação',
+            message: 'Email ou senha invalido',
             enableBackdropDismiss: false,
-            buttons:[
+            buttons: [
                 {
-                    text:'Ok'
+                    text: 'Ok'
                 }
             ]
         });
         alert.present();
     }
 
-    handleDefautError(errorObj){
+    handle422(errorObj) {
         let alert = this.alertCtrl.create({
-            title:'erro '+errorObj.status+': '+errorObj.error,
-            message:errorObj.message,
+            title: 'erro 422: Validação',
+            message: this.listErros(errorObj.errors),
             enableBackdropDismiss: false,
-            buttons:[
+            buttons: [
                 {
-                    text:'Ok'
+                    text: 'Ok'
                 }
             ]
         });
         alert.present();
+    
+}
+
+handleDefautError(errorObj){
+    let alert = this.alertCtrl.create({
+        title: 'erro ' + errorObj.status + ': ' + errorObj.error,
+        message: errorObj.message,
+        enableBackdropDismiss: false,
+        buttons: [
+            {
+                text: 'Ok'
+            }
+        ]
+    });
+    alert.present();
+}
+
+    private listErros(messages: FieldMessage[]): string {
+    let s: string = '';
+    for (var i = 0; i < messages.length; i++) {
+        s = s + '<p><strong>' + messages[i].fieldname + "</strong>: " + messages[i].message + '</p>';
     }
+    return s;
+}
 }
 
 export const ErrorInterceptorProvider = {
